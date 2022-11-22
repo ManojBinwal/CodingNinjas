@@ -29,10 +29,11 @@ public class RecursivePattern {
 //      InterestingAlphabets ab = new InterestingAlphabets();
 //      ab.pattern(n,p);
 
-        System.out.println("*");
-        HalfDiamondRec hf = new HalfDiamondRec();
-        hf.pattern1(n,p);
-        hf.pattern2(n-1,p);
+//        System.out.println("*");
+//        HalfDiamondRec hf = new HalfDiamondRec();
+//        hf.pattern1(n,p);
+//        hf.pattern2(n-1,p);
+//        System.out.print("*");
 
     }
 }
