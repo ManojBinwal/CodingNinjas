@@ -4,12 +4,12 @@ public class SquarePattern {
     static int temp = 0;
 
     public static void squarePattern(int n,int p){
-        if(n == 0) {return;}
-        for(int i = 0; i < p; i++){
-            System.out.print(p);
+        if(p>n) {return;}
+        for(int i = 0; i < n; i++){
+            System.out.print(n);
         }
         System.out.println();
-        squarePattern(n - 1,p);
+        squarePattern(n,p+1);
 
     }
 
