@@ -3,7 +3,7 @@ package Recursion1;
 public class CalculatePower {
     public static void main(String[] args) {
         int n = 2;
-        int p = 8;
+        int p = 0;
 
         int pow = power(n,p);
         System.out.println(pow);
