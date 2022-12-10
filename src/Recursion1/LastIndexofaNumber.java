@@ -1,5 +1,7 @@
 package Recursion1;
-
+/*
+This problem is also same as find just find the index from the back and return the index
+ */
 public class LastIndexofaNumber{
     public static void main(String[] args) {
         int arr[]= {1,2,3,4,5,6,7,9,5,4};

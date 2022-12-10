@@ -1,8 +1,13 @@
 package Recursion2;
-
+/*
+if str.charAt(anyIndex)==X then return substring by calling function from substring 1 after adding nothing..
+this will remove x which is the char at 0
+else add the charAt(0) and call the function from substring 1
+this will return the complete string without removing anything but create a separate string of character which are checked.
+ */
 public class RemoveX {
     public static void main(String[] args) {
-        String str = "this is an xx example xx of removing xxX";
+        String str = "this is an xx eXample xx of removing xxX";
         String newStr=removeX(str);
         System.out.println(newStr);
     }
@@ -10,13 +15,6 @@ public class RemoveX {
         if(str.length()==0){ //if string length becomes zero means there are no x
             return str;
         }
-        if(str.charAt(0)=='x'){
-            return removeX(str.substring(1)); //returns string from index 1 to end of string
-            //in effect this removes x from beginning of the string
-        }
-        else
-            return str.charAt(0)+removeX(str.substring(1));  //traverse through the string
-
-
+        return ((str.charAt(0) == 'x') ? "":str.charAt(0)) + removeX(str.substring(1));  //traverse through the string
     }
 }

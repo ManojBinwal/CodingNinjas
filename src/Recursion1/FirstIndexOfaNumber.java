@@ -1,5 +1,9 @@
 package Recursion1;
 
+/*
+the problem is same as find x just find x return its index.
+ */
+
 public class FirstIndexOfaNumber {
     public static void main(String[] args) {
         int arr[] = {1,2,3,4,5,6,7};

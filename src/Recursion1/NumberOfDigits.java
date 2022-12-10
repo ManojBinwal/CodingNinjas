@@ -10,6 +10,6 @@ public class NumberOfDigits {
         if(n<10){
             return 1;
         }
-        return 1 + (count(n/10));
+        return 1 + (count(n/10)); //return count + call the function for the smaller number.
     }
 }
