@@ -1,18 +1,18 @@
 package LinkedList;
-import java.util.*;
-import java.util.Scanner;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 class Node<T>{
     T data;
     Node next;
 
-    public Node(){
+    public Node() {}
 
-    }
-    public Node(T data){
+    public Node(T data) {
         this.data = data;
     }
 }
+@SuppressWarnings("ALL")
 public class LinkedListDemo {
 
 /*                                                                                                           /
@@ -31,10 +31,22 @@ public class LinkedListDemo {
         root = add(8, root);
         root = add(9,root);
         root = add(10, root);
-        root = add(9, root);
-        root = add(8, root);
-        root = add(7,root);
-        root = add(6, root);
+
+        Node<Integer>root1 = new Node<>(0);
+        root1 = add(11, root1);
+        root1 = add(12, root1);
+        root1 = add(34, root1);
+        root1 = add(121,root1);
+        root1 = add(12, root1);
+        root1 = add(13, root1);
+        root1 = add(14, root1);
+
+
+
+//        root = add(9, root);
+//        root = add(8, root);
+//        root = add(7,root);
+//        root = add(6, root);
 
 
 //        root = input(root);
@@ -71,10 +83,36 @@ public class LinkedListDemo {
 
 //        printReverseRecursive(root);
 
-        boolean isPal = isPalindrome(root);
-        System.out.println(isPal);
+//        boolean isPal = isPalindrome(root);
+//        System.out.println(isPal);
 
+//        root = addRecursive(root,20);
+//        printIterative(root);
+//
+//        root = deleteRecursive(root,5);
+//        printIterative(root);
+//
+//        root= reverseLinkedListRecursive(root);
+//        printIterative(root);
+//        printIterative(root1);
+//        Node<Integer> newNode =mergeSort(root1);
+//        printIterative(newNode);
 
+//        int index = findIndex(root1,13,0);
+//        System.out.println(index);
+
+//        root1 = evenAfterOdd(root1);
+//        printIterative(root1);
+
+//       Node<Integer>newNode=skipMdeleteN(root1,2,3);
+
+//        printIterative(root1);
+//        Node<Integer>newNode=swapNodes(root1,3,4);
+//        printIterative(newNode);
+
+//        Node<Integer>newNode = kReverse(root1,2);
+        root1 = bubbleSort(root1);
+        printIterative(root1);
 
 
 
@@ -85,7 +123,360 @@ public class LinkedListDemo {
  * ----------------------------------------------------------------------------------------------------------/
  */
     }
+    public static Node<Integer> bubbleSort(Node<Integer> head) {
+        // If the list is empty or has only one element, return the list
+        if (head == null || head.next == null) {
+            return head;
+        }
 
+        // Set up a flag to track whether the list was modified in the current pass
+        boolean modified = true;
+
+        // Loop until the list is sorted
+        while (modified) {
+            modified = false;
+            Node<Integer> current = head;
+
+            // Loop through the list and compare adjacent elements
+            while (current.next != null) {
+                // If the current element is greater than the next element, swap them
+                if (current.data>(Integer) current.next.data) {
+                    Integer temp = current.data;
+                    current.data = (Integer) current.next.data;
+                    current.next.data = temp;
+                    modified = true;
+                }
+                current = current.next;
+            }
+        }
+
+        return head;
+    }
+
+
+    // This function takes in a linked list and an integer k as input, and returns the linked list with the first k elements reversed
+    public static Node<Integer> kReverse(Node<Integer> head, int k) {
+        // If k is 0 or 1, there is no need to reverse the linked list
+        if (k == 0 || k == 1 ) {
+            return head;
+        }
+
+        // Initialize the variables that will be used to reverse the linked list
+        Node<Integer> current = head; // current is a pointer that will iterate through the linked list
+        Node<Integer> fwd = null; // fwd is a pointer that will point to the next node in the linked list
+        Node<Integer> prev = null; // prev is a pointer that will point to the previous node in the linked list
+        int count = 0; // count will keep track of how many nodes have been reversed so far
+
+        // Reverse the first k nodes of the linked list
+        while (count < k && current != null) {
+            // Save the next node in the linked list to fwd
+            fwd = current.next;
+            // Reverse the current node by pointing it to the previous node
+            current.next = prev;
+            // Update the pointers for the next iteration
+            prev = current;
+            current = fwd;
+            // Increment the count
+            count++;
+        }
+
+        // If there are more nodes in the linked list after the first k nodes, recursively reverse the remaining nodes in k-sized chunks
+        if (fwd != null) {
+            head.next = kReverse(fwd, k);
+        }
+
+        // Return the reversed linked list
+        return prev;
+    }
+
+    public static Node<Integer> swapNodes(Node<Integer> head, int i, int j) {
+        // If the indices are the same, there is no need to swap. Return the original list.
+        if(i == j) {
+            return head;
+        }
+        // Initialize a currentNode variable to the head of the list and a prev variable to null
+        Node<Integer> currentNode = head, prev = null;
+        // Initialize variables to hold the two nodes to be swapped, and the nodes preceding them
+       Node<Integer> firstNode = null, secondNode = null, firstNodePrev = null, secondNodePrev = null;
+        // Initialize a counter to keep track of the current position in the list
+        int pos = 0;
+        // Iterate through the list
+        while (currentNode != null) {
+            // If the current position is equal to the first index, store the current node and its previous node
+            if (pos == i) {
+                firstNodePrev = prev;
+                firstNode = currentNode;
+            }
+            // If the current position is equal to the second index, store the current node and its previous node
+            else if (pos == j) {
+                secondNodePrev = prev;
+                secondNode = currentNode;
+            }
+            // Update the prev and currentNode variables for the next iteration
+            prev = currentNode;
+            currentNode = currentNode.next;
+            // Increment the position counter
+            pos += 1;
+        }
+        // If the first node has a preceding node, set its next value to the second node
+        if (firstNodePrev != null) {
+            firstNodePrev.next = secondNode;
+        }
+        // If the first node does not have a preceding node, it is the head of the list. Set the head to the second node
+        else {
+            head = secondNode;
+        }
+        // If the second node has a preceding node, set its next value to the first node
+        if (secondNodePrev != null) {
+            secondNodePrev.next = firstNode;
+        }
+        // If the second node does not have a preceding node, it is the head of the list. Set the head to the first node
+        else {
+            head = firstNode;
+        }
+        // Store the next value of the second node before updating it
+       Node<Integer> currentfirstNode = secondNode.next;
+        // Set the next value of the second node to the next value of the first node
+        secondNode.next = firstNode.next;
+        // Set the next value of the first node to the stored next value of the second node
+        firstNode.next = currentfirstNode;
+        // Return the modified list
+        return head;
+    }
+    public static Node<Integer> skipMdeleteN(Node<Integer> head, int M, int N) {
+        // Return null if the linked list is empty or M is 0
+        if (head == null || M == 0) {
+            return null;
+        }
+
+        // Return the original linked list if N is 0
+        if (N == 0) {
+            return head;
+        }
+
+        // Initialize a variable to keep track of the current node
+        Node<Integer> currentNode = head;
+
+        // Iterate through the linked list
+        while (currentNode != null) {
+            // Skip M nodes
+            for (int count = 1; count < M && currentNode != null; count++) {
+                currentNode = currentNode.next;
+            }
+
+            // If we have reached the end of the linked list, return the modified list
+            if (currentNode == null) {
+                return head;
+            }
+
+            // Initialize a variable to store the node after the Nth node to be deleted
+            Node<Integer> nextNode = currentNode.next;
+
+            // Delete N nodes
+            for (int count = 1; count <= N && nextNode != null; count++) {
+                nextNode = nextNode.next;
+            }
+
+            // Set the current node's next pointer to the node after the deleted nodes
+            currentNode.next = nextNode;
+
+            // Set the current node to the node after the deleted nodes
+            currentNode = nextNode;
+        }
+
+        // Return the modified linked list
+        return head;
+    }
+    public static Node<Integer> evenAfterOdd(Node<Integer> head) {
+        // Create variables for the head and tail of even and odd linked lists
+        Node<Integer> evenHead = null;
+        Node<Integer> evenTail = null;
+        Node<Integer> oddHead = null;
+        Node<Integer> oddTail = null;
+
+        // Iterate through the original linked list
+        while (head != null) {
+            // If the current node is even
+            if (head.data % 2 == 0) {
+                // If the even linked list is empty, set the head and tail to the current node
+                if (evenHead == null && evenTail == null) {
+                    evenHead = head;
+                    evenTail = head;
+                }
+                // Otherwise, add the current node to the end of the even linked list
+                else {
+                    evenTail.next = head;
+                    evenTail = head;
+                }
+                // Move to the next node
+                head = head.next;
+            }
+            // If the current node is odd
+            else {
+                // If the odd linked list is empty, set the head and tail to the current node
+                if (oddHead == null && oddTail == null) {
+                    oddHead = head;
+                    oddTail = head;
+                }
+                // Otherwise, add the current node to the end of the odd linked list
+                else {
+                    oddTail.next = head;
+                    oddTail = head;
+                }
+                // Move to the next node
+                head = head.next;
+            }
+        }
+
+        // If the odd linked list is not empty, connect the tail to the head of the even linked list
+        if (oddHead != null) {
+            oddTail.next = evenHead;
+        }
+        // Otherwise, return the head of the even linked list
+        else {
+            return evenHead;
+        }
+
+        // If the even linked list is not empty, set the tail to null to end the linked list
+        if (evenHead != null) {
+            evenTail.next = null;
+        }
+        // Return the head of the odd linked list
+        return oddHead;
+    }
+
+    public static int findIndex(Node<Integer> head, int n, int index) {
+        // Base case: if the list is empty, return -1
+        if (head == null) {
+            return -1;
+        }
+
+        // If the current node's data is equal to n, return the index
+        if (head.data == n) {
+            return index;
+        }
+
+        // Recursively search the rest of the list
+        return findIndex(head.next, n, index + 1);
+    }
+    public static Node<Integer> mergeSort(Node<Integer> head) {
+        // Base case: if the list is empty or has only one element, return the list
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // Split the list into two halves
+        Node<Integer> middle = getMiddleNode(head);
+        Node<Integer> right = middle.next;
+        middle.next = null;
+
+        // Recursively sort the two halves
+        Node<Integer> left = mergeSort(head);
+        right = mergeSort(right);
+
+        // Merge the two sorted halves and return the merged list
+        return mergeTwoSortedArrays(left, right);
+    }
+
+    private static Node<Integer> mergeTwoSortedArrays(Node<Integer> left, Node<Integer> right) {
+        // Create a new node to store the merged list
+        Node<Integer> newNode = new Node<Integer>(0);
+
+        // Set up pointers for the current element in each list
+        Node<Integer> current = newNode;
+        Node<Integer> current1 = left;
+        Node<Integer> current2 = right;
+
+        // Loop through both lists while both have elements
+        while (current1 != null && current2 != null) {
+            // If the element in the first list is smaller or equal to the element in the second list, add it to the merged list
+            if (current1.data <= current2.data) {
+                current.next = current1;
+                // Move to the next element in the first list
+                current1 = current1.next;
+            }
+            // If the element in the second list is smaller, add it to the merged list
+            else {
+                current.next = current2;
+                // Move to the next element in the second list
+                current2 = current2.next;
+            }
+            current = current.next;
+        }
+
+        // Add the remaining elements from the first list, if any
+        if (current1 != null) {
+            current.next = current1;
+        }
+        // Add the remaining elements from the second list, if any
+        else if (current2 != null) {
+            current.next = current2;
+        }
+
+        // Return the merged list, starting from the second node (to skip the placeholder node)
+        return newNode.next;
+    }
+
+    // Utility function to find the middle node in a linked list
+    private static Node<Integer> getMiddleNode(Node<Integer> head) {
+        if (head == null) {
+            return head;
+        }
+
+        Node<Integer> slow = head;
+        Node<Integer> fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+
+
+    private static Node<Integer> reverseLinkedListRecursive(Node<Integer> root) {
+       if(root==null || root.next==null){
+           return root;
+       }
+       Node<Integer> revL = reverseLinkedListRecursive(root.next);
+       root.next.next=root;
+       root.next= null;
+       return revL;
+    }
+
+
+    private static Node<Integer> deleteRecursive(Node<Integer> root, int pos) {
+        // If the root node is null, return null
+        if(root==null){
+            return root;
+        }
+
+        // If the position to be deleted is 0, return the next node in the list
+        if(pos==0){
+            return root.next;
+        }
+
+        // Remove the node at the specified position by calling the function recursively with the next node and the position decremented by 1
+        root.next=deleteRecursive(root.next,pos-1);
+
+        // Return the root node
+        return root;
+    }
+
+    private static Node<Integer> addRecursive(Node<Integer> root, int data) {
+        // If the root node is null, create a new node and return it
+        if (root == null) {
+            return new Node<Integer>(data);
+        }
+
+        // Add a new node to the end of the list by calling the function recursively with the next node
+        root.next = addRecursive(root.next, data);
+
+        // Return the root node
+        return root;
+    }
     public static boolean isPalindrome(Node<Integer> head) {
         //Your code goes here
 
@@ -115,17 +506,11 @@ public class LinkedListDemo {
 
     public static void printReverseRecursive(Node<Integer> root) {
         //Your code goes here
-        Node<Integer> smallOutput=printReverseRecursion(root);
-    }
-
-    public static Node<Integer> printReverseRecursion(Node<Integer> node)
-    {
-        if (node==null)
-            return node;
-        Node<Integer> smallOutput=printReverseRecursion(node.next);
-        System.out.print(node.data+" ");
-        return smallOutput;
-
+      if(root==null){
+          return;
+      }
+      printReverseRecursive(root.next);
+        System.out.print(root.data+ " ");
     }
 
 
