@@ -1,15 +1,5 @@
 package Test5;
-class LinkedListNode<T> {
-    // Data stored in the node
-    T data;
-    // Pointer to the next node
-    LinkedListNode<T> next;
 
-    // Constructor to initialize the node with given data
-    public LinkedListNode(T data) {
-        this.data = data;
-    }
-}
 public class NextNumber {
     public static LinkedListNode<Integer> nextLargeNumber(LinkedListNode<Integer> head) {
         // Initialize the last non-9 node to null
